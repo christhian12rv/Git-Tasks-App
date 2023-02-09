@@ -1,0 +1,24 @@
+generator client {
+  provider = "prisma-client-js"
+  engineType = "binary"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = "postgresql://postgres:postgres@localhost:5432/git-tasks-app"
+}
+
+model User {
+	id					Int 		@id @default(autoincrement())
+	login				String
+	avatar_url 	String
+	tasks				Task[]
+}
+
+model Task {
+	id					Int 		@id @default(autoincrement())
+	title				String
+	description	String
+	user				User		@relation(fields: [userId], references: [id])
+	userId			Int
+}
