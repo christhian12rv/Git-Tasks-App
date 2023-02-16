@@ -2,14 +2,22 @@ type User {
 	id: Int
 	login: String
 	avatar_url: String
+	tasks: [Task]
+	token: String
 }
 
-type Task {
-	id: Int
-	title: String
-	description: String
+input UserInput {
+	login: String
+	avatar_url: String
 }
 
 type Query {
+	users: [User]!
 	user(login: String): User!
+}
+
+type Mutation {
+ 	createUser(login: String): User!
+ 	updateUser(login: String, data: UserInput): User!
+ 	deleteUser(login: String): User!
 }

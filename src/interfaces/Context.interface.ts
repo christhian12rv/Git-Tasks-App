@@ -1,9 +1,8 @@
-import GitHubService from '../services/GitHub.service';
+import ApolloContextInterface from './ApolloContext.interface';
+import DataSourcesInterface from './DataSources.interface';
 
-type ContextInterface = {
-	dataSources: {
-		gitHubService: GitHubService
-	}
+interface ContextInterface extends ApolloContextInterface {
+	dataSources: DataSourcesInterface
 }
 
 export default ContextInterface;

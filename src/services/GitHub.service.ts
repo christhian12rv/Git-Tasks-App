@@ -1,4 +1,5 @@
 import { RESTDataSource } from 'apollo-datasource-rest';
+import UserNotFoundError from '../errors/UserNotFoundError';
 import UserInterface from '../interfaces/User.interface';
 
 class GitHubService extends RESTDataSource {
@@ -8,9 +9,16 @@ class GitHubService extends RESTDataSource {
 	}
 
 	public async getUser(login): Promise<UserInterface> {
-		const user = await this.get(`/users/${login}`);
+		try {
+			const user = await this.get(`/users/${login}`);
 
-		return user;
+			return user;
+		} catch (error) {
+			if (error.extensions.response.status === 404)
+				throw new UserNotFoundError(`Usuário ${login} não encontrado`);
+
+			throw new Error(error);
+		}
 	}
 }
 

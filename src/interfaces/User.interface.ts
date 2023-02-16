@@ -5,6 +5,7 @@ interface UserInterface {
 	login: string
 	avatar_url: string
 	tasks?: TaskInterface[]
+	token?: string
 }
 
 export default UserInterface;
